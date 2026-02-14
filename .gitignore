@@ -1,0 +1,24 @@
+
+# --- NetBeans Specific (Quan trọng) ---
+# Loại bỏ các cấu hình riêng tư của người dùng (vị trí cửa sổ, đường dẫn tuyệt đối...)
+/nbproject/private/
+/nbproject/project.properties
+/nbproject/genfiles.properties
+
+# --- Build & Output ---
+# Loại bỏ thư mục chứa code đã biên dịch (tránh nặng và xung đột)
+/build/
+/dist/
+/nbbuild/
+/nbdist/
+
+# --- Java Compiled Files ---
+*.class
+
+# --- OS Specific ---
+# File rác của Windows và Mac
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
