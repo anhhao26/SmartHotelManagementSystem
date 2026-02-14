@@ -1,0 +1,42 @@
+# --- NetBeans (Ant) ---
+nbproject/private/
+build/
+dist/
+nbdist/
+.nb-gradle/
+
+# --- Maven (Nếu lỡ dùng) ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# --- Gradle (Nếu lỡ dùng) ---
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# --- IDE khác (IntelliJ / Eclipse - Phòng hờ bạn khác dùng) ---
+.idea/
+*.iml
+.settings/
+.classpath
+.project
+
+# --- File chạy & Nén ---
+*.class
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# --- Hệ điều hành ---
+.DS_Store
+Thumbs.db
+
+# --- NGOẠI LỆ (QUAN TRỌNG: Giữ lại thư viện) ---
+!libs/*.jar
