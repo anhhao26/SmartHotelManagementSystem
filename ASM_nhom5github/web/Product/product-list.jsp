@@ -89,31 +89,35 @@
                                         </c:if>
                                     </td>
 
-                                    <td>
+                                    <td class="d-flex justify-content-center">
                                         <c:if test="${p.isActive}">
                                             <a href="products?action=edit&id=${p.productID}"
-                                                class="btn btn-sm btn-info">Sửa</a>
-
+                                                class="btn btn-sm btn-info mr-1">Sửa</a>
                                             <a href="products?action=import&id=${p.productID}"
-                                                class="btn btn-sm btn-success">Nhập</a>
+                                                class="btn btn-sm btn-success mr-1">Nhập</a>
 
-                                            <a href="products?action=softDelete&id=${p.productID}"
-                                                class="btn btn-sm btn-warning"
-                                                onclick="return confirm('Tạm ngừng kinh doanh sản phẩm này?');">
-                                                Ẩn
-                                            </a>
+                                            <form action="products" method="POST" style="display:inline;" class="mr-1">
+                                                <input type="hidden" name="action" value="softDelete">
+                                                <input type="hidden" name="id" value="${p.productID}">
+                                                <button type="submit" class="btn btn-sm btn-warning"
+                                                    onclick="return confirm('Ngừng kinh doanh sản phẩm này?');">Ẩn</button>
+                                            </form>
                                         </c:if>
 
                                         <c:if test="${!p.isActive}">
-                                            <a href="products?action=restore&id=${p.productID}"
-                                                class="btn btn-sm btn-secondary">Mở lại</a>
-
-                                            <a href="products?action=hardDelete&id=${p.productID}"
-                                                class="btn btn-sm btn-danger"
-                                                onclick="return confirm('CẢNH BÁO: Hành động này sẽ xóa vĩnh viễn sản phẩm VÀ toàn bộ lịch sử nhập hàng liên quan!');">
-                                                Xóa VV
-                                            </a>
+                                            <form action="products" method="POST" style="display:inline;" class="mr-1">
+                                                <input type="hidden" name="action" value="restore">
+                                                <input type="hidden" name="id" value="${p.productID}">
+                                                <button type="submit" class="btn btn-sm btn-primary">Khôi phục</button>
+                                            </form>
                                         </c:if>
+
+                                        <form action="products" method="POST" style="display:inline;">
+                                            <input type="hidden" name="action" value="hardDelete">
+                                            <input type="hidden" name="id" value="${p.productID}">
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Nguy hiểm: Xóa vĩnh viễn không thể khôi phục?(Toàn bộ dữ liệu liên quan sẽ biến mất!');">Xóa</button>
+                                        </form>
                                     </td>
                                 </tr>
                             </c:forEach>

@@ -12,11 +12,7 @@ package service;
 import entity.Product;
 import java.util.List;
 
-/**
- * [cite_start]Module 2: Interface Dịch vụ Sản phẩm [cite: 12]
- * Mục tiêu: Định nghĩa các hành động mà Controller có thể yêu cầu.
- * Giúp tách biệt Controller và DAO (Code logic nghiệp vụ).
- */
+
 public interface ProductService {
     
     // Lấy danh sách sản phẩm 
