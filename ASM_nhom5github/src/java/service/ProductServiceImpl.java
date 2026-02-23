@@ -82,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
     
     @Override
     public boolean deductStock(int productId, int quantityToDeduct) {
-        // Có thể thêm logic kiểm tra điều kiện ở đây trước khi gọi DAO nếu cần
+        // Có thể thêm logic kiểm tra điều kiện ở đây trước khi gọi DAO nếu cần(nhớ xem,hỏi cô rồi làm sau)
         if (quantityToDeduct <= 0) {
             return false; // Không hợp lệ
         }

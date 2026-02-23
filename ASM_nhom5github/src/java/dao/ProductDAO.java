@@ -74,7 +74,7 @@ public void updateProductInfo(Product p) {
             existing.setIsTradeGood(p.isIsTradeGood());
             
             // Lưu ý: Không cho sửa Quantity và CostPrice ở đây để tránh gian lận/nhầm lẫn
-            // Hoặc nếu bạn muốn cho sửa sai số thì set ở đây nhưng không ghi history
+            // Hoặc nếu  muốn cho sửa sai số thì set ở đây nhưng không ghi history
             em.merge(existing);
         }
         trans.commit();
@@ -155,7 +155,7 @@ public void createNewProduct(Product p) {
         trans.begin();
         Product product = em.find(Product.class, productId);
         
-        // [NÊN LÀM]: Refresh để lấy số lượng tồn kho mới nhất từ DB
+        // nhớ refresh để lấy số lượng tồn kho mới nhất từ DB
         // Tránh trường hợp cache báo còn 10 nhưng thực tế người khác đã mua hết rồi
         if (product != null) {
             em.refresh(product); 
@@ -235,7 +235,7 @@ public void createNewProduct(Product p) {
             trans.begin();
             Product p = em.find(Product.class, id);
             if (p != null) {
-                p.setIsActive(true); // Đánh dấu là hiện (Kinh doanh lại)
+                p.setIsActive(true); // Đánh dấu là hiện 
                 em.merge(p);
             }
             trans.commit();
