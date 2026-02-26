@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+  <persistence-unit name="SmartHotelPU" transaction-type="RESOURCE_LOCAL">
+<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>    <class>com.smarthotel.model.Account</class>
+    <class>com.smarthotel.model.Customer</class>
+    <class>com.smarthotel.model.Room</class>
+    <class>com.smarthotel.model.Booking</class>
+    <class>com.smarthotel.model.Inventory</class>
+    <class>com.smarthotel.model.Invoice</class>
+    <class>com.smarthotel.model.InvoiceItem</class>
+
+    <properties>
+      <!-- JDBC connection - adjust to your environment -->
+      <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=ASMDB_nhom5;encrypt=true;trustServerCertificate=true;"/>
+      <property name="jakarta.persistence.jdbc.user" value="sa"/>
+      <property name="jakarta.persistence.jdbc.password" value="123456"/>
+
+      <!-- Hibernate / JPA properties -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+      <property name="hibernate.hbm2ddl.auto" value="validate"/> <!-- set to update/create for dev only -->
+      <property name="hibernate.show_sql" value="false"/>
+      <property name="hibernate.format_sql" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>
