@@ -75,113 +75,53 @@ public class ProductController extends HttpServlet {
         }
     }
 
-    // [ProductController.java]
+    
 
 @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    String action = request.getParameter("action");
-    
-    // Bảo vệ lỗi NullPointerException cho lệnh switch bên dưới
-    if (action == null) {
-        action = "list"; 
-    }
-
-    try {
-        switch (action) {
-            // --- CÁC CHỨC NĂNG THÊM/SỬA SẢN PHẨM ---
-            case "insert":
-                Product newProduct = new Product();
-                newProduct.setProductName(request.getParameter("name"));
-                newProduct.setUnit(request.getParameter("unit"));
-                newProduct.setQuantity(Integer.parseInt(request.getParameter("quantity")));
-                newProduct.setCostPrice(Double.parseDouble(request.getParameter("costPrice")));
-                
-                boolean isTradeNew = "1".equals(request.getParameter("isTradeGood"));
-                newProduct.setIsTradeGood(isTradeNew);
-                
-                // Nếu là hàng tiêu hao thì ép giá bán về 0
-                if (!isTradeNew) {
-                    newProduct.setSellingPrice(0);
-                } else {
-                    newProduct.setSellingPrice(Double.parseDouble(request.getParameter("sellingPrice")));
-                }
-                
-                Supplier sNew = new Supplier();
-                sNew.setSupplierID(Integer.parseInt(request.getParameter("supplierID")));
-                newProduct.setSupplier(sNew);
-                
-                productService.createNewProduct(newProduct);
-                response.sendRedirect("products");
-                break;
-
-            case "update":
-                Product updateProduct = new Product();
-                updateProduct.setProductID(Integer.parseInt(request.getParameter("id")));
-                updateProduct.setProductName(request.getParameter("name"));
-                updateProduct.setUnit(request.getParameter("unit"));
-                
-                boolean isTradeUpdate = "1".equals(request.getParameter("isTradeGood"));
-                updateProduct.setIsTradeGood(isTradeUpdate);
-                
-                if (!isTradeUpdate) {
-                    updateProduct.setSellingPrice(0);
-                } else {
-                    updateProduct.setSellingPrice(Double.parseDouble(request.getParameter("sellingPrice")));
-                }
-                
-                Supplier sUpdate = new Supplier();
-                sUpdate.setSupplierID(Integer.parseInt(request.getParameter("supplierID")));
-                updateProduct.setSupplier(sUpdate);
-                
-                productService.updateProductInfo(updateProduct);
-                response.sendRedirect("products");
-                break;
-
-            case "saveImport":
-                int idImport = Integer.parseInt(request.getParameter("id"));
-                int qtyToAdd = Integer.parseInt(request.getParameter("quantityToAdd"));
-                double newCost = Double.parseDouble(request.getParameter("newCostPrice"));
-                
-                productService.importStock(idImport, qtyToAdd, newCost);
-                response.sendRedirect("products");
-                break;
-
-            // --- CÁC CHỨC NĂNG LÀM THAY ĐỔI TRẠNG THÁI / XÓA ---
-            case "softDelete":
-                int idSoft = Integer.parseInt(request.getParameter("id"));
-                productService.softDelete(idSoft);
-                response.sendRedirect("products");
-                break;
-
-            case "restore":
-                int idRestore = Integer.parseInt(request.getParameter("id"));
-                productService.restore(idRestore);
-                // Redirect về và giữ nguyên trạng thái xem hàng ẩn
-                response.sendRedirect("products?showHidden=true");
-                break;
-
-            case "hardDelete":
-                int idHard = Integer.parseInt(request.getParameter("id"));
-                productService.hardDelete(idHard);
-                response.sendRedirect("products");
-                break;
-
-            // --- CÁC CHỨC NĂNG NHÀ CUNG CẤP ---
-            case "saveSupplier":
-                saveSupplier(request, response);
-                break;
-
-            default:
-                
-                response.sendRedirect("products");
-                break;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "list";
         }
 
-    } catch (Exception ex) {
-        throw new ServletException(ex);
+        try {
+            switch (action) {
+                // --- Xử lý Sản phẩm ---
+                case "insert":
+                    insertProduct(request, response);
+                    break;
+                case "update":
+                    updateProduct(request, response);
+                    break;
+                case "saveImport":
+                    saveImport(request, response);
+                    break;
+                    
+                // --- Xử lý Xóa / Trạng thái ---
+                case "softDelete":
+                    softDeleteProduct(request, response);
+                    break;
+                case "restore":
+                    restoreProduct(request, response);
+                    break;
+                case "hardDelete":
+                    hardDeleteProduct(request, response);
+                    break;
+
+                // --- Xử lý Nhà cung cấp ---
+                case "saveSupplier":
+                    saveSupplier(request, response);
+                    break;
+
+                default:
+                    response.sendRedirect("products");
+                    break;
+            }
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        }
     }
-}
 
     // --- CÁC HÀM HIỂN THỊ VIEW (JSP) ---
 
@@ -286,5 +226,72 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         } catch (Exception e) {
             response.sendRedirect("products?action=listSuppliers&error=CannotDelete");
         }
+    }
+    // ==========================================
+    // CÁC HÀM XỬ LÝ POST 
+  
+
+    private void insertProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Product newProduct = new Product();
+        newProduct.setProductName(request.getParameter("name"));
+        newProduct.setUnit(request.getParameter("unit"));
+        newProduct.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+        newProduct.setCostPrice(Double.parseDouble(request.getParameter("costPrice")));
+        
+        boolean isTradeNew = "1".equals(request.getParameter("isTradeGood"));
+        newProduct.setIsTradeGood(isTradeNew);
+        newProduct.setSellingPrice(isTradeNew ? Double.parseDouble(request.getParameter("sellingPrice")) : 0);
+        
+        Supplier sNew = new Supplier();
+        sNew.setSupplierID(Integer.parseInt(request.getParameter("supplierID")));
+        newProduct.setSupplier(sNew);
+        
+        productService.createNewProduct(newProduct);
+        response.sendRedirect("products");
+    }
+
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Product updateProduct = new Product();
+        updateProduct.setProductID(Integer.parseInt(request.getParameter("id")));
+        updateProduct.setProductName(request.getParameter("name"));
+        updateProduct.setUnit(request.getParameter("unit"));
+        
+        boolean isTradeUpdate = "1".equals(request.getParameter("isTradeGood"));
+        updateProduct.setIsTradeGood(isTradeUpdate);
+        updateProduct.setSellingPrice(isTradeUpdate ? Double.parseDouble(request.getParameter("sellingPrice")) : 0);
+        
+        Supplier sUpdate = new Supplier();
+        sUpdate.setSupplierID(Integer.parseInt(request.getParameter("supplierID")));
+        updateProduct.setSupplier(sUpdate);
+        
+        productService.updateProductInfo(updateProduct);
+        response.sendRedirect("products");
+    }
+
+    private void saveImport(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int idImport = Integer.parseInt(request.getParameter("id"));
+        int qtyToAdd = Integer.parseInt(request.getParameter("quantityToAdd"));
+        double newCost = Double.parseDouble(request.getParameter("newCostPrice"));
+        
+        productService.importStock(idImport, qtyToAdd, newCost);
+        response.sendRedirect("products");
+    }
+
+    private void softDeleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        productService.softDelete(id);
+        response.sendRedirect("products");
+    }
+
+    private void restoreProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        productService.restore(id);
+        response.sendRedirect("products?showHidden=true");
+    }
+
+    private void hardDeleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        productService.hardDelete(id);
+        response.sendRedirect("products");
     }
 }
