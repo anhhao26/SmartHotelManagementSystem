@@ -12,6 +12,7 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 import jakarta.persistence.*;
+import jakarta.persistence.Version;
 
 /**
  * Module 2: Kho & Định giá [cite: 12]
@@ -55,6 +56,10 @@ public class Product implements Serializable {
     
     @Column(name = "IsActive")
     private boolean isActive = true; // Mặc định là true
+
+    @Version
+    @Column(name = "Version")
+    private int version;
 
     // Quan hệ N-1: Nhiều sản phẩm thuộc về 1 nhà cung cấp
     @ManyToOne
@@ -168,6 +173,14 @@ public class Product implements Serializable {
 
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
+    }
+    
+    public int getVersion() {
+        return version;
+    }
+    
+    public void setVersion(int version) {
+        this.version = version;
     }
     
 

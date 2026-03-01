@@ -158,7 +158,11 @@ public class ProductController extends HttpServlet {
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = parseIdSafe(request.getParameter("id"));
+        if (id == -1) {
+            response.sendRedirect("products");
+            return;
+        }
         Product existingProduct = productService.findById(id);
         List<Supplier> listSuppliers = supplierService.findAll();
         
@@ -170,7 +174,11 @@ public class ProductController extends HttpServlet {
     //  Form nhập hàng
     private void showImportForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = parseIdSafe(request.getParameter("id"));
+        if (id == -1) {
+            response.sendRedirect("products");
+            return;
+        }
         Product p = productService.findById(id);
         request.setAttribute("product", p);
         request.getRequestDispatcher("Product/import-form.jsp").forward(request, response);
@@ -192,7 +200,11 @@ public class ProductController extends HttpServlet {
 
     private void showEditSupplierForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = parseIdSafe(request.getParameter("id"));
+        if (id == -1) {
+            response.sendRedirect("products?action=listSuppliers");
+            return;
+        }
         Supplier s = supplierService.findById(id);
         request.setAttribute("supplier", s);
         request.getRequestDispatcher("Product/supplier-form.jsp").forward(request, response);
@@ -220,8 +232,10 @@ public class ProductController extends HttpServlet {
     private void deleteSupplier(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            supplierService.delete(id);
+            int id = parseIdSafe(request.getParameter("id"));
+            if (id != -1) {
+                supplierService.delete(id);
+            }
             response.sendRedirect("products?action=listSuppliers");
         } catch (Exception e) {
             response.sendRedirect("products?action=listSuppliers&error=CannotDelete");
@@ -251,8 +265,13 @@ public class ProductController extends HttpServlet {
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = parseIdSafe(request.getParameter("id"));
+        if (id == -1) {
+            response.sendRedirect("products");
+            return;
+        }
         Product updateProduct = new Product();
-        updateProduct.setProductID(Integer.parseInt(request.getParameter("id")));
+        updateProduct.setProductID(id);
         updateProduct.setProductName(request.getParameter("name"));
         updateProduct.setUnit(request.getParameter("unit"));
         
@@ -269,7 +288,11 @@ public class ProductController extends HttpServlet {
     }
 
     private void saveImport(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int idImport = Integer.parseInt(request.getParameter("id"));
+        int idImport = parseIdSafe(request.getParameter("id"));
+        if (idImport == -1) {
+            response.sendRedirect("products");
+            return;
+        }
         int qtyToAdd = Integer.parseInt(request.getParameter("quantityToAdd"));
         double newCost = Double.parseDouble(request.getParameter("newCostPrice"));
         
@@ -278,20 +301,38 @@ public class ProductController extends HttpServlet {
     }
 
     private void softDeleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        productService.softDelete(id);
+        int id = parseIdSafe(request.getParameter("id"));
+        if (id != -1) {
+            productService.softDelete(id);
+        }
         response.sendRedirect("products");
     }
 
     private void restoreProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        productService.restore(id);
+        int id = parseIdSafe(request.getParameter("id"));
+        if (id != -1) {
+            productService.restore(id);
+        }
         response.sendRedirect("products?showHidden=true");
     }
 
     private void hardDeleteProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        productService.hardDelete(id);
+        int id = parseIdSafe(request.getParameter("id"));
+        if (id != -1) {
+            productService.hardDelete(id);
+        }
         response.sendRedirect("products");
+    }
+
+    //  hàm này để phân tích số an toàn
+    private int parseIdSafe(String idStr) {
+        if (idStr == null || idStr.trim().isEmpty()) {
+            return -1; // Trả về -1 nếu không có ID
+        }
+        try {
+            return Integer.parseInt(idStr);
+        } catch (NumberFormatException e) {
+            return -1; // Trả về -1 nếu người dùng cố tình gõ chữ thay vì số
+        }
     }
 }

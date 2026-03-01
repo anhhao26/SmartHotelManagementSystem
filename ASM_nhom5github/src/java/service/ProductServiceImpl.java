@@ -62,6 +62,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void importStock(int productId, int quantityToAdd, double newCostPrice) {
+        // [THÊM ĐOẠN VALIDATE NÀY]
+        if (quantityToAdd <= 0) {
+            System.out.println("CẢNH BÁO BẢO MẬT: Phát hiện luồng nhập số lượng âm/bằng 0!");
+            return; // Chặn đứng, không gọi xuống DAO
+        }
+        if (newCostPrice < 0) {
+            System.out.println("CẢNH BÁO: Giá nhập không hợp lệ!");
+            return;
+        }
+
+        // Nếu qua ải kiểm tra, mới cho phép gọi DAO
         productDAO.importStock(productId, quantityToAdd, newCostPrice);
     }
 
@@ -82,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
     
     @Override
     public boolean deductStock(int productId, int quantityToDeduct) {
-        // Có thể thêm logic kiểm tra điều kiện ở đây trước khi gọi DAO nếu cần(nhớ xem,hỏi cô rồi làm sau)
+        // Có thể thêm logic kiểm tra điều kiện ở đây trước khi gọi DAO nếu cần
         if (quantityToDeduct <= 0) {
             return false; // Không hợp lệ
         }
