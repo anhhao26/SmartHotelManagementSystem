@@ -54,4 +54,11 @@ public class RoomDAO {
             em.close();
         }
     }
+    
+public List<Room> findAvailableRooms() {
+    try (EntityManager em = JpaUtils.getEntityManager()) {
+        String jpql = "SELECT r FROM Room r JOIN FETCH r.roomType WHERE r.status='Available'";
+        return em.createQuery(jpql, Room.class).getResultList();
+    }
+}
 }
