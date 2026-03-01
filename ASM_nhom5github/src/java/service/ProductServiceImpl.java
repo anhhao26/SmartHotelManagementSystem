@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void createNewProduct(Product p) {
-    // LOGIC NGHIỆP VỤ: Nếu là hàng tiêu dùng (isTradeGood = false) -> Giá bán phải bằng 0
+    // LOGIC NGHIỆP VỤ: Nếu là hàng tiêu dùng (isTradeGood = false) -> Giá bán bằng 0
         if (!p.isIsTradeGood()) {
            p.setSellingPrice(0);
     }   
@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void importStock(int productId, int quantityToAdd, double newCostPrice) {
-        // [THÊM ĐOẠN VALIDATE NÀY]
+        
         if (quantityToAdd <= 0) {
             System.out.println("CẢNH BÁO BẢO MẬT: Phát hiện luồng nhập số lượng âm/bằng 0!");
             return; // Chặn đứng, không gọi xuống DAO
@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
             return;
         }
 
-        // Nếu qua ải kiểm tra, mới cho phép gọi DAO
+        // Nếu qua ải kiểm tra, cho phép gọi DAO
         productDAO.importStock(productId, quantityToAdd, newCostPrice);
     }
 
@@ -93,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
     
     @Override
     public boolean deductStock(int productId, int quantityToDeduct) {
-        // Có thể thêm logic kiểm tra điều kiện ở đây trước khi gọi DAO nếu cần
+        
         if (quantityToDeduct <= 0) {
             return false; // Không hợp lệ
         }

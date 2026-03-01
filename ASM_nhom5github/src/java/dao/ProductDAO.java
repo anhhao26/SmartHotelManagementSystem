@@ -73,8 +73,8 @@ public void updateProductInfo(Product p) {
             existing.setSupplier(p.getSupplier());
             existing.setIsTradeGood(p.isIsTradeGood());
             
-            // Lưu ý: Không cho sửa Quantity và CostPrice ở đây để tránh gian lận/nhầm lẫn
-            // Hoặc nếu  muốn cho sửa sai số thì set ở đây nhưng không ghi history
+            // không cho sửa Quantity và CostPrice ở đây để tránh gian lận/nhầm lẫn
+            
             em.merge(existing);
         }
         trans.commit();
@@ -120,7 +120,7 @@ public void importStock(int productId, int quantityToAdd, double newCostPrice) {
     }
 }
 
-// HÀM 3: TẠO SẢN PHẨM MỚI TINH (Vẫn cần lưu lịch sử lần đầu)
+// HÀM 3: tạo sản phẩm mới (Vẫn cần lưu lịch sử lần đầu)
 public void createNewProduct(Product p) {
     EntityManager em = JpaUtils.getEntityManager();
     EntityTransaction trans = em.getTransaction();
@@ -173,7 +173,7 @@ public void createNewProduct(Product p) {
             return false;
         }
     } catch (Exception e) {
-        // [AN TOÀN]: Chỉ rollback nếu transaction đang hoạt động
+        // AN TOÀN: Chỉ rollback nếu transaction đang hoạt động
         if (trans.isActive()) {
             trans.rollback();
         }

@@ -55,7 +55,7 @@ public class SupplierDAO {
         }
     }
 
-    // Hàm xóa NCC (Lưu ý: Nếu NCC đã có hàng trong kho thì sẽ không xóa được do ràng buộc khóa ngoại)
+    // Hàm xóa NCC (lưu ý: Nếu NCC đã có hàng trong kho thì sẽ không xóa được do ràng buộc khóa ngoại)
     public void delete(int id) throws Exception {
         EntityManager em = JpaUtils.getEntityManager();
         EntityTransaction trans = em.getTransaction();
