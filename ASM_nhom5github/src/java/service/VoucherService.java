@@ -24,31 +24,47 @@ public class VoucherService {
     }
 
     // Logic Thêm/Sửa: Kiểm tra dữ liệu cực kỳ chặt chẽ trước khi lưu
-    public String saveVoucher(Voucher voucher) {
-        // 1. Validate đầu vào (Tránh lỗi do người dùng nhập sai trên UI)
-        if (voucher.getVoucherCode() == null || voucher.getVoucherCode().trim().isEmpty()) {
-            return "Mã Voucher không được để trống!";
-        }
-        if (voucher.getDiscountValue() == null || voucher.getDiscountValue().compareTo(BigDecimal.ZERO) <= 0) {
-            return "Giá trị giảm giá phải lớn hơn 0!";
-        }
-        if (voucher.getStartDate().after(voucher.getEndDate())) {
-            return "Ngày bắt đầu không thể sau ngày kết thúc!";
-        }
-
-        // 2. Logic kiểm tra trùng lặp để quyết định Thêm hay Sửa
-        Voucher existingVoucher = voucherDAO.findById(voucher.getVoucherCode());
+    public String saveVoucher(Voucher newVoucher) {
+    // 1. Vào Database tìm xem mã này đã từng tồn tại chưa
+    Voucher existingVoucher = voucherDAO.findById(newVoucher.getVoucherCode());
+    
+    if (existingVoucher != null) {
+        // --- TÌNH HUỐNG 1: MÃ NÀY ĐÃ TỪNG TỒN TẠI TRONG QUÁ KHỨ ---
         
-        if (existingVoucher == null) {
-            // Chưa tồn tại -> Bắt Thủ kho (DAO) Thêm mới
-            boolean success = voucherDAO.insert(voucher);
-            return success ? "OK" : "Lỗi hệ thống khi thêm mới Voucher.";
+        // Kiểm tra xem mã cũ còn đang hoạt động VÀ còn lượt dùng không?
+        boolean isStillValid = existingVoucher.isIsActive() 
+                            && existingVoucher.getUsedCount() < existingVoucher.getUsageLimit();
+                            
+        if (isStillValid) {
+            // BỨC TƯỜNG LỬA: Mã vẫn đang xài ngon -> CHẶN LẠI, không cho tạo đè
+            return "Lỗi: Mã Voucher này đang tồn tại và vẫn còn lượt sử dụng!";
         } else {
-            // Đã tồn tại -> Bắt Thủ kho (DAO) Cập nhật
-            boolean success = voucherDAO.update(voucher);
-            return success ? "OK" : "Lỗi hệ thống khi cập nhật Voucher.";
+            // HỢP LỆ: Mã đã bị xóa mềm (isActive = false) HOẶC đã hết sạch lượt dùng
+            // -> Tiến hành "Hồi sinh" (Ghi đè thông số mới lên dòng cũ)
+            existingVoucher.setDiscountValue(newVoucher.getDiscountValue());
+            existingVoucher.setMinOrderValue(newVoucher.getMinOrderValue());
+            existingVoucher.setUsageLimit(newVoucher.getUsageLimit());
+            existingVoucher.setStartDate(newVoucher.getStartDate());
+            existingVoucher.setEndDate(newVoucher.getEndDate());
+            
+            // QUAN TRỌNG: Reset số lượt đã dùng về 0 và Mở khóa hoạt động lại
+            existingVoucher.setUsedCount(0); 
+            existingVoucher.setIsActive(true);
+            
+            // Gọi lệnh Update thay vì Insert
+            voucherDAO.update(existingVoucher);
+            return "success";
         }
+    } else {
+        // --- TÌNH HUỐNG 2: MÃ HOÀN TOÀN MỚI TINH ---
+        newVoucher.setUsedCount(0);
+        newVoucher.setIsActive(true); // Mặc định mở khóa
+        
+        // Gọi lệnh Insert thêm mới
+        voucherDAO.insert(newVoucher);
+        return "success";
     }
+}
 
     // Xóa mềm Voucher: Chuyển IsActive = false rồi cập nhật
     public boolean deleteVoucher(String voucherCode) {
