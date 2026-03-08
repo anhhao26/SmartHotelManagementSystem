@@ -1,7 +1,7 @@
-package com.smarthotel.service;
+package service;
 
-import com.smarthotel.dao.BookingDAO;
-import com.smarthotel.model.Booking;
+import dao.BookingDAO;
+import model.Booking;
 
 public class BookingService {
     private final BookingDAO dao = new BookingDAO();

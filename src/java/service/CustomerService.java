@@ -1,7 +1,7 @@
-package com.smarthotel.service;
+package service;
 
-import com.smarthotel.dao.CustomerDAO;
-import com.smarthotel.model.Customer;
+import dao.CustomerDAO;
+import model.Customer;
 import java.util.List;  // thêm dòng này
 
 public class CustomerService {

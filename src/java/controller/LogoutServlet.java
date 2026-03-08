@@ -1,4 +1,4 @@
-package com.smarthotel.controller;
+package controller;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;

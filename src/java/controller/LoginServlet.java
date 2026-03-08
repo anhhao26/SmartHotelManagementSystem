@@ -1,7 +1,7 @@
-package com.smarthotel.controller;
+package controller;
 
-import com.smarthotel.model.Account;
-import com.smarthotel.service.AuthService;
+import model.Account;
+import service.AuthService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

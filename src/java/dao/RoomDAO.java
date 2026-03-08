@@ -1,8 +1,8 @@
-package com.smarthotel.dao;
+package dao;
 
-import com.smarthotel.model.Room;
-import com.smarthotel.model.RoomType;
-import com.smarthotel.util.JPAUtil;
+import model.Room;
+import model.RoomType;
+import util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;

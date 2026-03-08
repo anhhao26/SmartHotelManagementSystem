@@ -1,8 +1,8 @@
-package com.smarthotel.controller;
+package controller;
 
-import com.smarthotel.model.Room;
-import com.smarthotel.model.RoomType;
-import com.smarthotel.service.RoomService;
+import model.Room;
+import model.RoomType;
+import service.RoomService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;

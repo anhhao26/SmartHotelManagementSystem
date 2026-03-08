@@ -1,7 +1,7 @@
-package com.smarthotel.controller;
+package controller;
 
-import com.smarthotel.dao.RoomDAO;
-import com.smarthotel.model.Room;
+import dao.RoomDAO;
+import model.Room;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

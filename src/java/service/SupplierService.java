@@ -1,7 +1,7 @@
-package com.smarthotel.service;
+package service;
 
-import com.smarthotel.dao.SupplierDAO;
-import com.smarthotel.model.Supplier;
+import dao.SupplierDAO;
+import model.Supplier;
 import java.util.List;
 
 public class SupplierService {

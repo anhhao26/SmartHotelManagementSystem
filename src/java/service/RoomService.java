@@ -1,8 +1,8 @@
-package com.smarthotel.service;
+package service;
 
-import com.smarthotel.dao.RoomDAO;
-import com.smarthotel.model.Room;
-import com.smarthotel.model.RoomType;
+import dao.RoomDAO;
+import model.Room;
+import model.RoomType;
 import java.util.List;
 
 public class RoomService {

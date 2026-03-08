@@ -1,7 +1,7 @@
-package com.smarthotel.controller;
+package controller;
 
-import com.smarthotel.model.Customer;
-import com.smarthotel.service.CustomerService;
+import model.Customer;
+import service.CustomerService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import jakarta.servlet.ServletException;

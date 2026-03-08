@@ -1,7 +1,7 @@
-package com.smarthotel.dao;
+package dao;
 
-import com.smarthotel.model.Supplier;
-import com.smarthotel.util.JPAUtil;
+import model.Supplier;
+import util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 

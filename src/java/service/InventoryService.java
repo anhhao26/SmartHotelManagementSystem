@@ -1,7 +1,7 @@
-package com.smarthotel.service;
+package service;
 
-import com.smarthotel.dao.InventoryDAO;
-import com.smarthotel.model.Inventory;
+import dao.InventoryDAO;
+import model.Inventory;
 import java.util.List;
 
 public class InventoryService {

@@ -1,6 +1,6 @@
-package com.smarthotel.controller;
+package controller;
 
-import com.smarthotel.dao.BookingDAO;
+import dao.BookingDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;

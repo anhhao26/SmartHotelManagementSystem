@@ -1,7 +1,7 @@
-package com.smarthotel.dao;
+package dao;
 
-import com.smarthotel.model.Account;
-import com.smarthotel.util.JPAUtil;
+import model.Account;
+import util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;

@@ -1,6 +1,6 @@
-package com.smarthotel.filter;
+package filter;
 
-import com.smarthotel.model.Account;
+import model.Account;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;

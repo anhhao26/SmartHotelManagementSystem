@@ -1,4 +1,4 @@
-package com.smarthotel.util;
+package util;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

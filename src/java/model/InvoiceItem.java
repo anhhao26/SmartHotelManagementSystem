@@ -1,4 +1,4 @@
-package com.smarthotel.model;
+package model;
 
 import jakarta.persistence.*;
 

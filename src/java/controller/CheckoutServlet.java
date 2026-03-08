@@ -1,7 +1,7 @@
-package com.smarthotel.controller;
+package controller;
 
-import com.smarthotel.model.CartItem;
-import com.smarthotel.service.BillingService;
+import model.CartItem;
+import service.BillingService;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import jakarta.servlet.ServletException;

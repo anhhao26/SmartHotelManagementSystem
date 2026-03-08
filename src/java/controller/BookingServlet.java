@@ -1,14 +1,14 @@
-package com.smarthotel.controller;
+package controller;
 
-import com.smarthotel.dao.CustomerDAO;
-import com.smarthotel.dao.RoomDAO;
-import com.smarthotel.dao.VoucherDAO;
-import com.smarthotel.model.Booking;
-import com.smarthotel.model.Customer;
-import com.smarthotel.model.Room;
-import com.smarthotel.model.Voucher;
-import com.smarthotel.service.BookingService;
-import com.smarthotel.service.VoucherService;
+import dao.CustomerDAO;
+import dao.RoomDAO;
+import dao.VoucherDAO;
+import model.Booking;
+import model.Customer;
+import model.Room;
+import model.Voucher;
+import service.BookingService;
+import service.VoucherService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -89,12 +89,9 @@ public class BookingServlet extends HttpServlet {
 
             if (rs.equals("OK")) {
                 
-                // ==========================================
-                // FIX LỖI: ĐỒNG BỘ TRẠNG THÁI PHÒNG XUỐNG DB
-                room.setStatus("Occupied"); // Đổi trạng thái thành Có khách
-                roomDAO.update(room);       // Lưu ngay xuống Database
-                // ==========================================
-
+                // ĐÃ SỬA: KHÔNG khóa phòng ở đây nữa. 
+                // Phòng vẫn là Available cho đến khi thanh toán VNPay thành công.
+                
                 req.setAttribute("booking", b);
                 req.getRequestDispatcher("webapp/payment.jsp").forward(req, resp);
             } else {

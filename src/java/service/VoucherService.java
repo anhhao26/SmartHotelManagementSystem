@@ -1,7 +1,7 @@
-package com.smarthotel.service;
+package service;
 
-import com.smarthotel.dao.VoucherDAO;
-import com.smarthotel.model.Voucher;
+import dao.VoucherDAO;
+import model.Voucher;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;

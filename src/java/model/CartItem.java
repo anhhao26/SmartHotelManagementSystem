@@ -1,4 +1,4 @@
-package com.smarthotel.model;
+package model;
 
 public class CartItem {
     private int itemID;

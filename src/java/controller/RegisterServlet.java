@@ -1,10 +1,10 @@
-package com.smarthotel.controller;
+package controller;
 
-import com.smarthotel.dao.AccountDAO;
-import com.smarthotel.model.Account;
-import com.smarthotel.model.Customer;
-import com.smarthotel.service.AuthService;
-import com.smarthotel.service.CustomerService;
+import dao.AccountDAO;
+import model.Account;
+import model.Customer;
+import service.AuthService;
+import service.CustomerService;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;

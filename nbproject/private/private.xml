@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/srcDBI/SmartHotel/web/admin/manageCRM.jsp</file>
+            <file>file:/D:/srcDBI/SmartHotel/web/guest/history.jsp</file>
+            <file>file:/D:/srcDBI/SmartHotel/web/guest/profile.jsp</file>
+            <file>file:/D:/srcDBI/SmartHotel/web/guest/register.jsp</file>
+            <file>file:/D:/srcDBI/SmartHotel/web/reception/checkout.jsp</file>
+            <file>file:/D:/srcDBI/SmartHotel/web/reception/home.jsp</file>
+            <file>file:/D:/srcDBI/SmartHotel/web/reception/invoice.jsp</file>
+            <file>file:/D:/srcDBI/SmartHotel/web/index.html</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/dao/BookingDAO.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/VoucherServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/CheckoutServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/AdminCustomerServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/AdminServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/AvailableRoomServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/BookingServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/LoginServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/ManageCRMServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/RegisterServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/controller/RoomServlet.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/dao/AccountDAO.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/dao/CustomerDAO.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/dao/InventoryDAO.java</file>
+            <file>file:/D:/srcDBI/SmartHotel/src/java/dao/SupplierDAO.java</file>
+        </group>
+    </open-files>
+</project-private>

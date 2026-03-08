@@ -1,7 +1,7 @@
-package com.smarthotel.controller;
+package controller;
 
-import com.smarthotel.model.Voucher;
-import com.smarthotel.service.VoucherService;
+import model.Voucher;
+import service.VoucherService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;

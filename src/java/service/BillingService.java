@@ -1,9 +1,15 @@
-package com.smarthotel.service;
+package service;
 
-import com.smarthotel.dao.InventoryDAO;
-import com.smarthotel.dao.BookingDAO;
-import com.smarthotel.model.*;
-import com.smarthotel.util.JPAUtil;
+import model.Inventory;
+import model.Invoice;
+import model.Customer;
+import model.CartItem;
+import model.InvoiceItem;
+import model.Booking;
+import model.Room;
+import dao.InventoryDAO;
+import dao.BookingDAO;
+import util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import java.util.Date;

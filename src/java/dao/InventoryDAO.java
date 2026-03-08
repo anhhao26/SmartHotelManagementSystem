@@ -1,8 +1,8 @@
-package com.smarthotel.dao;
+package dao;
 
-import com.smarthotel.model.Inventory;
-import com.smarthotel.model.ImportHistory;
-import com.smarthotel.util.JPAUtil;
+import model.Inventory;
+import model.ImportHistory;
+import util.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.LockModeType;

@@ -1,7 +1,7 @@
-package com.smarthotel.service;
+package service;
 
-import com.smarthotel.dao.AccountDAO;
-import com.smarthotel.model.Account;
+import dao.AccountDAO;
+import model.Account;
 
 public class AuthService {
     private final AccountDAO accountDAO = new AccountDAO();
